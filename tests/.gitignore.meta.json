@@ -1,0 +1,5 @@
+{
+  "$schema": "http://localhost:8080/versions/.gitignore/1.0.0.json",
+  "href": "https://raw.githubusercontent.com/github/gitignore/main/Node.gitignore",
+  "custom": ["*.log"]
+}
