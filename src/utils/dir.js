@@ -1,5 +1,5 @@
-const fs = require('fs')
-const path = require('path')
+const fs = require('fs');
+const path = require('path');
 
 /**
  * Resolves a given path (relative or absolute) to an absolute path.
@@ -12,20 +12,20 @@ const path = require('path')
  */
 function getAbsolutePath(inputPath, { forceDirectory = false } = {}) {
   // Resolve the path to an absolute path
-  const absolutePath = path.resolve(inputPath)
+  const absolutePath = path.resolve(inputPath);
 
   // If forceDirectory is true, ensure the path exists and is a directory
   if (forceDirectory) {
     if (!fs.existsSync(absolutePath)) {
-      return null
+      return null;
     }
-    const stats = fs.statSync(absolutePath)
+    const stats = fs.statSync(absolutePath);
     if (!stats.isDirectory()) {
-      return null
+      return null;
     }
   }
 
-  return absolutePath
+  return absolutePath;
 }
 
-module.exports = { getAbsolutePath }
+module.exports = { getAbsolutePath };
