@@ -1,0 +1,28 @@
+name: build
+on:
+  pull_request:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20, cache: 'pnpm' }
+      - run: corepack enable
+      - run: corepack prepare pnpm@latest --activate
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm lint
+      - run: pnpm format
+      - run: pnpm test
+      - run: pnpm build
+      - name: verify manifest immutability
+        run: |
+          node -e "const m=require('fs').readFileSync('dist/manifest.json','utf8'); JSON.parse(m)"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist
