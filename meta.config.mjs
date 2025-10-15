@@ -2,7 +2,6 @@
 export const config = {
   dirs: {
     paths: {
-      coreSchemas: '/src/core/schemas',
       schemas: '/src/configuration/schemas',
       versions: '/versions',
     },
@@ -21,4 +20,4 @@ export const config = {
     owners: ['Paulo Sánchez (@erlete) <dev.szblzpaulo@gmail.com>'],
     defaultStatus: 'stable',
   },
-}
+};

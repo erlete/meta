@@ -24,6 +24,12 @@ importers:
         specifier: 17.2.0
         version: 17.2.0
     devDependencies:
+      '@apidevtools/json-schema-ref-parser':
+        specifier: ^14.2.1
+        version: 14.2.1(@types/json-schema@7.0.15)
+      '@eslint/js':
+        specifier: ^9.37.0
+        version: 9.37.0
       '@types/node':
         specifier: ^24.7.2
         version: 24.7.2
@@ -36,6 +42,9 @@ importers:
       eslint:
         specifier: ^9.37.0
         version: 9.37.0
+      globals:
+        specifier: ^16.4.0
+        version: 16.4.0
       husky:
         specifier: ^9.1.7
         version: 9.1.7
@@ -56,6 +65,12 @@ importers:
         version: 3.2.4(@types/node@24.7.2)(tsx@4.20.6)(yaml@2.8.1)
 
 packages:
+
+  '@apidevtools/json-schema-ref-parser@14.2.1':
+    resolution: {integrity: sha512-HmdFw9CDYqM6B25pqGBpNeLCKvGPlIx1EbLrVL0zPvj50CJQUHyBNBw45Muk0kEIkogo1VZvOKHajdMuAzSxRg==}
+    engines: {node: '>= 20'}
+    peerDependencies:
+      '@types/json-schema': ^7.0.15
 
   '@babel/code-frame@7.27.1':
     resolution: {integrity: sha512-cjQ7ZlQ0Mv3b47hABuTevyTuYN4i+loJKGeV9flcCgIK37cCXRh+L1bd3iBHlynerhQ7BhCkn2BPbQUL+rGqFg==}
@@ -811,6 +826,10 @@ packages:
     resolution: {integrity: sha512-oahGvuMGQlPw/ivIYBjVSrWAfWLBeku5tpPE2fOPLi+WHffIWbuh2tCjhyQhTBPMf5E9jDEH4FOmTYgYwbKwtQ==}
     engines: {node: '>=18'}
 
+  globals@16.4.0:
+    resolution: {integrity: sha512-ob/2LcVVaVGCYN+r14cnwnoDPUufjiYgSqRhiFD0Q1iI4Odora5RE8Iv1D24hAz5oMophRGkGz+yuvQmmUMnMw==}
+    engines: {node: '>=18'}
+
   handlebars@4.7.8:
     resolution: {integrity: sha512-vafaFqs8MZkRrSX7sFVUdo3ap/eNiLnb4IakshzvP56X5Nr1iGKAIqdX6tMlm6HcNRIkr6AxO5jFEoJzzpT8aQ==}
     engines: {node: '>=0.4.7'}
@@ -1320,6 +1339,11 @@ packages:
     engines: {node: '>=10'}
 
 snapshots:
+
+  '@apidevtools/json-schema-ref-parser@14.2.1(@types/json-schema@7.0.15)':
+    dependencies:
+      '@types/json-schema': 7.0.15
+      js-yaml: 4.1.0
 
   '@babel/code-frame@7.27.1':
     dependencies:
@@ -1981,6 +2005,8 @@ snapshots:
       is-glob: 4.0.3
 
   globals@14.0.0: {}
+
+  globals@16.4.0: {}
 
   handlebars@4.7.8:
     dependencies:

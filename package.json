@@ -13,10 +13,13 @@
   },
   "description": "Configuration assistant for repository and file control",
   "devDependencies": {
+    "@apidevtools/json-schema-ref-parser": "^14.2.1",
+    "@eslint/js": "^9.37.0",
     "@types/node": "^24.7.2",
     "changesets": "^1.0.2",
     "conventional-changelog-cli": "^5.0.0",
     "eslint": "^9.37.0",
+    "globals": "^16.4.0",
     "husky": "^9.1.7",
     "lint-staged": "^16.2.4",
     "prettier": "3.5.3",
@@ -39,9 +42,20 @@
   "packageManager": "pnpm@10.8.1",
   "private": true,
   "scripts": {
-    "build": "node src/configuration/core/scripts/compiler.mjs",
-    "check": "node src/configuration/core/scripts/compiler.mjs --check",
-    "cq:format": "prettier --write ."
+    "build": "node src/build/index.mjs",
+    "test": "vitest run",
+    "cq:lint": "eslint .",
+    "cq:format:check": "prettier --check .",
+    "cq:format": "prettier --write .",
+    "check": "pnpm run cq:lint && pnpm run cq:format:check && pnpm test && pnpm build",
+    "prepublishOnly": "pnpm check",
+    "gen:types": "json2ts dist/json/**/*.json -o dist/types",
+    "release": "changeset version && pnpm install && git add -A && git commit -m \"chore: version\" && changeset publish",
+    "prepare": "husky"
   },
-  "version": "1.0.0"
+  "version": "1.0.0",
+  "lint-staged": {
+    "*.{js,mjs,cjs,ts,cts,ctsx,tsx,json,yml,yaml}": "prettier --write",
+    "*.{js,mjs,ts,tsx}": "eslint --fix"
+  }
 }

@@ -147,3 +147,9 @@
 **/*.sketch
 **/*.dwg
 **/*.dxf
+
+# Other:
+.codacy
+
+# Exceptions:
+!**/src/build/**
