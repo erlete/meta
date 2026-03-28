@@ -3,15 +3,40 @@
  *
  * This module provides functions to emit JSON Schemas to the filesystem,
  * either as raw schemas or bundled schemas with all references resolved.
- * It uses the `@apidevtools/json-schema-ref-parser` library to handle
+ * It includes stable stringification for deterministic JSON output and
+ * uses the `@apidevtools/json-schema-ref-parser` library to handle
  * schema bundling and ensures that emitted files are stored in the correct
  * directory structure based on their `$id` URLs.
  */
 
 import fs from 'node:fs';
 import path from 'node:path';
-import { stableStringify } from './stable-stringify.mjs';
 import RefParser from '@apidevtools/json-schema-ref-parser';
+
+// region Helpers
+
+/**
+ * Converts a value to a stable JSON string with sorted object keys.
+ * This ensures deterministic output for consistent hashing and comparison.
+ *
+ * @param {*} value - The value to stringify.
+ * @returns {string} The stable JSON string representation.
+ */
+export function stableStringify(value) {
+  const seen = new WeakSet();
+  const sorter = (obj) => {
+    if (obj === null || typeof obj !== 'object') return obj;
+    if (seen.has(obj)) throw new Error('circular');
+    seen.add(obj);
+    if (Array.isArray(obj)) return obj.map(sorter);
+    return Object.fromEntries(
+      Object.keys(obj)
+        .sort()
+        .map((k) => [k, sorter(obj[k])])
+    );
+  };
+  return JSON.stringify(sorter(value), null, 2) + '\n';
+}
 
 /**
  * Writes contents to a file, creating directories as needed.
@@ -24,6 +49,8 @@ export function writeFile(outPath, contents) {
   fs.mkdirSync(path.dirname(outPath), { recursive: true });
   fs.writeFileSync(outPath, contents);
 }
+
+// region Other
 
 /**
  * Emits a raw JSON Schema to the filesystem.
